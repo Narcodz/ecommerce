@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, Link } from "react-router-dom"
 import { useAuth } from '../../context/auth'
-import  toast  from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
 function Header() {
   const [auth, setAuth] = useAuth()
@@ -9,10 +9,10 @@ function Header() {
     setAuth({
       ...auth,
       user: null,
-      token:""
+      token: ""
     })
     localStorage.removeItem("auth");
-    toast.success("Logout Successfully",  { delay: 1000 })
+    toast.success("Logout Successfully", { delay: 1000 })
   }
   return (
     <>
@@ -32,18 +32,25 @@ function Header() {
               <NavLink to="/category" className="nav-link" >Category</NavLink>
             </li>
             {!auth.user ? (
-            <>
-              <li className="nav-item">
-                <NavLink to="/register" className="nav-link" >Register</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link" >Login</NavLink>
-              </li>
-            </>
-            ):(<>
+              <>
                 <li className="nav-item">
-                <NavLink onClick={handleLogout} to="/login" className="nav-link" >Logout</NavLink>
+                  <NavLink to="/register" className="nav-link" >Register</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link" >Login</NavLink>
+                </li>
+              </>
+            ) : (<>
+              <li className="nav-item dropdown">
+                <NavLink className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {auth?.user?.name}
+                </NavLink>
+                <ul className="dropdown-menu">
+                  <li><NavLink to="/dashboard" className="dropdown-item">Dashboard</NavLink></li>
+                  <li><NavLink onClick={handleLogout} to="/login" className="dropdown-item" >Logout</NavLink></li>
+                </ul>
               </li>
+
             </>)}
             <li className="nav-item">
               <NavLink to="/cart" className="nav-link" >Cart (0)</NavLink>
