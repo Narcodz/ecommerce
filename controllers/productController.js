@@ -108,7 +108,7 @@ export const productPhotoController = async (req, res) => {
 //Delete product
 export const deleteProductController = async (req, res) => {
     try {
-        await productModel.findByIdAndDelete(req.params.pid)
+        await productModel.findByIdAndDelete(req.params.pid).select("-photo")
         res.status(200).send({
             success: true,
             message: "Product Deleted successfully",
@@ -126,7 +126,7 @@ export const deleteProductController = async (req, res) => {
 //
 export const updateProductController = async (req, res) => {
     try {
-        const { name, slug, description, price, category, quantity, shipping } = req.fields
+        const { name, description, price, category, quantity, shipping } =req.fields
         const { photo } = req.files
 
         //validation
@@ -141,7 +141,7 @@ export const updateProductController = async (req, res) => {
                 return res.status(500).send({ error: 'Category is required' })
             case !quantity:
                 return res.status(500).send({ error: 'Quantity is required' })
-            case !photo && photo.size > 1000000:
+            case photo && photo.size > 1000000:
                 return res.status(500).send(
                     { error: 'photo is required and should be less than 1mb' })
         }
@@ -149,7 +149,7 @@ export const updateProductController = async (req, res) => {
         const products = await productModel.findByIdAndUpdate(
             req.params.pid,
             { ...req.fields, slug: slugify(name)},
-            { new : true})
+            { new: true })
         if (photo) {
             products.photo.data = fs.readFileSync(photo.path)
             products.photo.contentType = photo.type
