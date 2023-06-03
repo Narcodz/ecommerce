@@ -8,7 +8,8 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ./client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Narcodez",
@@ -26,5 +27,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
     "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0"
   }
 }
