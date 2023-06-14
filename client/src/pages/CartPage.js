@@ -3,11 +3,11 @@ import Layout from "./../components/Layout/Layout";
 import { useCart } from "../context/cart";
 import { useAuth } from "../context/auth";
 import { useNavigate } from "react-router-dom";
-// import DropIn from "braintree-web-drop-in-react";
+import DropIn from "braintree-web-drop-in-react";
 import { AiFillWarning } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
-// import "../styles/CartStyles.css";
+import "../styles/CartStyles.css";
 
 const CartPage = () => {
     const [auth, setAuth] = useAuth();
@@ -32,6 +32,7 @@ const CartPage = () => {
         console.log(error);
       }
     };
+
     //detele item
     const removeCartItem = (pid) => {
       try {
@@ -71,7 +72,7 @@ const CartPage = () => {
         localStorage.removeItem("cart");
         setCart([]);
         navigate("/dashboard/user/orders");
-        toast.success("Payment Completed Successfully ");
+        toast.success("Payment Completed Successfully");
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -147,15 +148,13 @@ const CartPage = () => {
                 ) : (
                   <div className="mb-3">
                     {auth?.token ? (
-                      <button
-                        className="btn btn-outline-warning"
+                      <button className="btn btn-outline-warning"
                         onClick={() => navigate("/dashboard/user/profile")}
                       >
                         Update Address
                       </button>
                     ) : (
-                      <button
-                        className="btn btn-outline-warning"
+                      <button className="btn btn-outline-warning"
                         onClick={() =>
                           navigate("/login", {
                             state: "/cart",
@@ -172,7 +171,7 @@ const CartPage = () => {
                     ""
                   ) : (
                     <>
-                      {/* <DropIn
+                      <DropIn
                         options={{
                           authorization: clientToken,
                           paypal: {
@@ -180,10 +179,9 @@ const CartPage = () => {
                           },
                         }}
                         onInstance={(instance) => setInstance(instance)}
-                      /> */}
+                      />
   
-                      <button
-                        className="btn btn-primary"
+                      <button className="btn btn-primary"
                         onClick={handlePayment}
                         disabled={loading || !instance || !auth?.user?.address}
                       >

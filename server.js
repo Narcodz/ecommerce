@@ -29,7 +29,7 @@ app.use("/api/v1/product", productRoutes)
 
 //rest api
 app.get("/", (req, res)=>{
-    res.send('<h1>welcome to ecommerce app</h1>')
+    res.send('<h1>welcome to Cakes n’ Sprinkles</h1>')
 })
 
 //PORT

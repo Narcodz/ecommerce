@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from "./../components/Layout/Layout";
 import { AiOutlineReload } from "react-icons/ai";
+import "../styles/HomePage.css";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function HomePage() {
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`)
       setLoading(false);
       setProducts(data.products)
-     
+
     } catch (error) {
       setLoading(false);
       console.log(error)
@@ -111,12 +112,16 @@ function HomePage() {
   return (
     <Layout title={'All Products - Best offers'}>
       {/* banner image */}
-      <img
-        src="/images/banner.png"
-        className="banner-img"
-        alt="bannerimage"
-        width={"100%"}
-      />
+      <div className="image-container">
+        <img
+          src="/images/banner.jpg"
+          className="banner-img"
+          alt="bannerimage"
+          width={"100%"}
+          height={"auto"}
+        />
+      </div>
+
       {/* banner image */}
       <div className="row mt-3">
         <div className="col-md-2">
@@ -156,26 +161,26 @@ function HomePage() {
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description}</p>
                   <p className="card-text">LKR {p.price}</p>
-                  
+
                   <div className="card-name-price"><button
                     className="btn btn-info ms-1"
                     onClick={() => navigate(`/product/${p.slug}`)}
                   >
                     More Details
                   </button>
-                  <button
-                    className="btn btn-dark ms-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item Added to cart");
-                    }}
-                  >
-                    ADD TO CART
-                  </button>
+                    <button
+                      className="btn btn-dark ms-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item Added to cart");
+                      }}
+                    >
+                      ADD TO CART
+                    </button>
                   </div>
                 </div>
               </div>

@@ -36,7 +36,7 @@ function Login() {
         }
     }
     return (
-        <Layout title="Register - Ecommerce App">
+        <Layout title="Register - Cakes n’ Sprinkles">
             <div className="form-container" style={{ minHeight: "90vh" }}>
 
                 <form onSubmit={handleSubmit}>

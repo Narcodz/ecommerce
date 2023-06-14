@@ -28,7 +28,7 @@ function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <Link to="/" className="navbar-brand">
-            🛒 Ecommerce App
+          🎂 Cakes n’ Sprinkles
           </Link>
           <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
             <SearchInput />
