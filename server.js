@@ -17,7 +17,8 @@ dotenv.config()
 connectDB()
 
 //esmodule fix
-// const __filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url)
 const staticPath = path.resolve(fileURLToPath(__filename), '../client/build');
 
 //rest object
@@ -36,7 +37,7 @@ app.use("/api/v1/product", productRoutes)
 
 //rest api
 app.use('*', function (req, res){
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
+    res.sendFile(path.resolve(staticPath, 'index.html'));
 });
 
 //PORT
