@@ -18,7 +18,7 @@ connectDB()
 
 //esmodule fix
 // const __filename = fileURLToPath(import.meta.url)
-const staticPath = path.resolve(__dirname, '../client/build');
+const staticPath = path.resolve(fileURLToPath(import.meta.url), '../client/build');
 
 //rest object
 const app = express()
