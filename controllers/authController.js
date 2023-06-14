@@ -101,12 +101,12 @@ export const loginController = async (req, res) => {
             token,
         })
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).send({
             success: false,
-            message: "Error in Login",
-            error
-        })
+            message: 'Error in login',
+            error: error.message
+        });
     }
 }
 
@@ -125,10 +125,10 @@ export const forgotPasswordController = async (req, res) => {
         }
 
         //check
-        const user = await userModel.findOne({ email, answer});
+        const user = await userModel.findOne({ email, answer });
 
         //validation
-        if(!user){
+        if (!user) {
             return res.status(404).send({
                 success: false,
                 message: "Wrong email or Answer"
@@ -136,7 +136,7 @@ export const forgotPasswordController = async (req, res) => {
         }
 
         const hashed = await hashPassword(newPassword);
-        await userModel.findByIdAndUpdate(user._id, {password: hashed})
+        await userModel.findByIdAndUpdate(user._id, { password: hashed })
         res.status(200).send({
             success: true,
             message: "Password Reset Successfully"

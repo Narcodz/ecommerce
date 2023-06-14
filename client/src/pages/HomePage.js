@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import Layout from '../components/Layout/Layout'
-import axios from 'axios'
-import { Checkbox, Radio } from 'antd'
-import { Prices } from '../components/Prices'
-import { AiOutlineReload } from "react-icons/ai"
-import { useNavigate } from "react-router-dom";;
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Checkbox, Radio } from "antd";
+import { Prices } from "../components/Prices";
+import { useCart } from "../context/cart";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Layout from "./../components/Layout/Layout";
+import { AiOutlineReload } from "react-icons/ai";
 
 function HomePage() {
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [checked, setChecked] = useState([])
@@ -41,7 +43,7 @@ function HomePage() {
       const { data } = await axios.get(`/api/v1/product/product-list/${page}`)
       setLoading(false);
       setProducts(data.products)
-      console.log('data', data.products)
+     
     } catch (error) {
       setLoading(false);
       console.log(error)
@@ -108,6 +110,14 @@ function HomePage() {
   }
   return (
     <Layout title={'All Products - Best offers'}>
+      {/* banner image */}
+      <img
+        src="/images/banner.png"
+        className="banner-img"
+        alt="bannerimage"
+        width={"100%"}
+      />
+      {/* banner image */}
       <div className="row mt-3">
         <div className="col-md-2">
           <h4 className="text-center">Filter By Category</h4>
@@ -146,13 +156,27 @@ function HomePage() {
                   <h5 className="card-title">{p.name}</h5>
                   <p className="card-text">{p.description}</p>
                   <p className="card-text">LKR {p.price}</p>
+                  
+                  <div className="card-name-price"><button
+                    className="btn btn-info ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
                   <button
-                      className="btn btn-info ms-1"
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                    >
-                      More Details
-                    </button>
-                  <button class="btn btn-secondary ms-1">ADD CART</button>
+                    className="btn btn-dark ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
+                    ADD TO CART
+                  </button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -160,7 +184,7 @@ function HomePage() {
           <div className="m-2 p-3">
             {products && products.length < total && (
               <button
-                className="btn btn-warning"
+                className="btn loadmore"
                 onClick={(e) => {
                   e.preventDefault();
                   setPage(page + 1);
