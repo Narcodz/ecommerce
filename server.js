@@ -16,8 +16,8 @@ dotenv.config()
 connectDB()
 
 //esmodule fix
-// const __filename = fileURLToPath(import.meta.url)
-const staticPath = path.resolve(fileURLToPath(__filename), '../client/build');
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename);
 
 //rest object
 const app = express()
@@ -26,7 +26,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(express.static(staticPath));
+app.use(express.static(path.join(__dirname, './client/build')))
 
 //routes
 app.use("/api/v1/auth", authRoutes)
