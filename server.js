@@ -17,11 +17,11 @@ dotenv.config()
 connectDB()
 
 //esmodule fix
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+let __filename = fileURLToPath(import.meta.url)
+let __dirname = path.dirname(__filename)
 
 //rest object
-const app = express()
+let app = express()
 
 //middlewares
 app.use(cors())
