@@ -27,7 +27,7 @@ function Layout({ children, title, description, keywords, author }) {
 }
 
 Layout.defaultProps = {
-  title: "Ecommerce app - shop now",
+  title: "Cakes n’ Sprinkles - shop now",
   description: "mern stack project",
   keywords: "mern, react, node, mongodb",
   author:"Narcodez"
